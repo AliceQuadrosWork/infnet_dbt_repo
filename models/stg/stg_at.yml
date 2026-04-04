@@ -1,0 +1,9 @@
+version: 2
+
+models:
+  - name: stg_at
+    columns:
+      - name: id_pedido
+        tests:
+          - not_null
+          - unique

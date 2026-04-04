@@ -1,0 +1,9 @@
+version: 2
+
+sources:
+  - name: bronze
+    database: dev
+    schema: spectrum_bronze
+
+    tables:
+      - name: at
