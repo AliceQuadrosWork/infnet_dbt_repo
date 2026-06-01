@@ -7,3 +7,12 @@ sources:
 
     tables:
       - name: at
+      - name: eventos
+
+    
+  - name: redshift
+    database: dev
+    schema: public
+
+    tables:
+      - name: clientes

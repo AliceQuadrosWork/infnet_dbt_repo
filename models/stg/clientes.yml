@@ -1,0 +1,33 @@
+version: 2
+
+models:
+  - name: clientes
+    columns:
+      - name: cliente_id
+        tests:
+          - not_null
+          - unique
+
+      - name: email
+        tests:
+          - not_null
+          - unique
+
+      - name: cpf
+        tests:
+          - not_null
+          - unique
+
+      - name: telefone
+        tests:
+          - not_null
+
+      - name: status_cliente
+        tests:
+          - accepted_values:
+              values: ['ATIVO', 'INATIVO', 'BLOQUEADO', 'PENDENTE']
+
+      - name: genero
+        tests:
+          - accepted_values:
+              values: ['Masculino', 'Feminino', 'Outro']
