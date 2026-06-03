@@ -10,9 +10,28 @@ phases:
       - apt-get update && apt-get install -y unzip
 
   pre_build:
-    commands:
-      - echo "Preparando dbt"
-      - dbt deps
+  commands:
+    - echo "Criando diretório do dbt"
+    - mkdir -p /root/.dbt
+
+    - echo "Criando profiles.yml"
+
+    - |
+      echo "dbt_project:
+        target: dev
+        outputs:
+          dev:
+            type: redshift
+            host: "redshift-workgroup.540477486035.us-east-1.redshift-serverless.amazonaws.com"
+            user: "awsadmin"
+            password: "*W*-.TbQtC9gVUkjrAH*"
+            dbname: "dev"
+            schema: public
+            port: 5439
+            threads: 4
+      " > /root/.dbt/profiles.yml
+
+    - export DBT_PROFILES_DIR=/root/.dbt
 
   build:
     commands:
