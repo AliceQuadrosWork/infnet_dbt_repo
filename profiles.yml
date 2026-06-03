@@ -1,0 +1,12 @@
+dbt_project:
+  target: dev
+  outputs:
+    dev:
+      type: redshift
+      host: "redshift-workgroup.540477486035.us-east-1.redshift-serverless.amazonaws.com"
+      user: "awsadmin"
+      password: "*W*-.TbQtC9gVUkjrAH*"
+      dbname: "dev"
+      schema: public
+      port: 5439
+      threads: 4
