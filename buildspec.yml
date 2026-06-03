@@ -9,14 +9,14 @@ phases:
       - pip install dbt-core dbt-postgres boto3 awscli
       - apt-get update && apt-get install -y unzip
 
-pre_build:
-  commands:
-    - echo "Criando diretório do dbt"
-    - mkdir -p /root/.dbt
+  pre_build:
+    commands:
+      - echo "Criando diretório do dbt"
+      - mkdir -p /root/.dbt
 
-    - echo "Criando profiles.yml do dbt"
-    - |
-      cat <<EOF > /root/.dbt/profiles.yml
+      - echo "Criando profiles.yml do dbt"
+      - |
+        cat > /root/.dbt/profiles.yml <<'EOF'
 dbt_project:
   target: dev
   outputs:
@@ -31,23 +31,21 @@ dbt_project:
       threads: 4
 EOF
 
-    - echo "Definindo DBT_PROFILES_DIR"
-    - export DBT_PROFILES_DIR=/root/.dbt
-    
+      - echo "Definindo DBT_PROFILES_DIR"
+      - export DBT_PROFILES_DIR=/root/.dbt
 
   build:
     commands:
-      - echo "Executando dbt"
-      # - dbt debug
+      - echo "Executando dbt run"
       - dbt run
       - dbt test
 
       - echo "Instalando Terraform"
-      - curl -O https://releases.hashicorp.com/terraform/1.6.6/terraform_1.6.6_linux_amd64.zip
-      - unzip terraform_1.6.6_linux_amd64.zip
+      - curl -o terraform.zip https://releases.hashicorp.com/terraform/1.6.6/terraform_1.6.6_linux_amd64.zip
+      - unzip terraform.zip
       - mv terraform /usr/local/bin/
 
-      - echo "Executando infraestrutura AWS"
+      - echo "Executando Terraform"
       - terraform init
       - terraform apply -auto-approve
 
