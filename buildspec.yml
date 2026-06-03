@@ -1,0 +1,35 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      python: 3.10
+    commands:
+      - echo "Instalando dependências"
+      - pip install dbt-core dbt-postgres boto3 awscli
+      - apt-get update && apt-get install -y unzip
+
+  pre_build:
+    commands:
+      - echo "Preparando dbt"
+      - dbt deps
+
+  build:
+    commands:
+      - echo "Executando dbt"
+      - dbt debug
+      - dbt run
+      - dbt test
+
+      - echo "Instalando Terraform"
+      - curl -O https://releases.hashicorp.com/terraform/1.6.6/terraform_1.6.6_linux_amd64.zip
+      - unzip terraform_1.6.6_linux_amd64.zip
+      - mv terraform /usr/local/bin/
+
+      - echo "Executando infraestrutura AWS"
+      - terraform init
+      - terraform apply -auto-approve
+
+  post_build:
+    commands:
+      - echo "Pipeline finalizado com sucesso"
