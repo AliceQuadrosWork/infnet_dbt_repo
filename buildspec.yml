@@ -15,8 +15,8 @@ pre_build:
     - mkdir -p /root/.dbt
 
     - echo "Criando profiles.yml do dbt"
-
-    - cat <<EOF > /root/.dbt/profiles.yml
+    - |
+      cat <<EOF > /root/.dbt/profiles.yml
 dbt_project:
   target: dev
   outputs:
