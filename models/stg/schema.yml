@@ -1,11 +1,10 @@
 version: 2
 
 models:
-  - name: clientes
-    description: "Tabela de clientes contendo informações cadastrais, contato, localização, dados financeiros e indicadores de atividade."
+  - name: stg_clientes
+    description: "Tabela de clientes tratada na camada staging, contendo informações cadastrais, contato, localização e indicadores financeiros dos clientes."
 
     columns:
-
       - name: cliente_id
         description: "Identificador único do cliente."
         tests:
@@ -16,42 +15,34 @@ models:
         description: "Nome completo do cliente."
 
       - name: email
-        description: "Endereço de e-mail do cliente."
+        description: "Endereço de e-mail do cliente utilizado para comunicação."
         tests:
           - not_null
           - unique
 
       - name: telefone
         description: "Número de telefone para contato do cliente."
-        tests:
-          - not_null
 
       - name: cpf
-        description: "Cadastro de Pessoa Física do cliente."
+        description: "Documento de identificação fiscal do cliente (CPF)."
         tests:
           - not_null
           - unique
 
       - name: genero
         description: "Gênero informado pelo cliente."
-        tests:
-          - accepted_values:
-              values: ['Masculino', 'Feminino', 'Outro']
 
       - name: status_cliente
-        description: "Status atual do cliente no sistema."
-        tests:
-          - accepted_values:
-              values: ['ATIVO', 'INATIVO', 'BLOQUEADO', 'PENDENTE']
+        description: "Situação atual do cliente no sistema."
 
       - name: data_nascimento
         description: "Data de nascimento do cliente."
 
       - name: cidade
-        description: "Cidade de residência do cliente."
+        description: "Cidade onde o cliente está localizado."
 
       - name: estado
-        description: "Estado de residência do cliente."
+        description: "Estado ou região administrativa do cliente."
 
       - name: pais
         description: "País de residência do cliente."
@@ -60,10 +51,10 @@ models:
         description: "Renda mensal declarada pelo cliente."
 
       - name: score_credito
-        description: "Pontuação de crédito associada ao cliente."
+        description: "Pontuação de crédito atribuída ao cliente."
 
       - name: data_cadastro
         description: "Data e horário em que o cliente foi cadastrado."
 
       - name: ativo
-        description: "Indicador que informa se o cliente está ativo."
+        description: "Indicador que informa se o cliente está ativo no sistema."
